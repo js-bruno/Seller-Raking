@@ -27,5 +27,7 @@
 * utils.py
     * Utilities to help display logs in terminal and query's in SqlAlchemy.
 * sales.py
-    * Database created in sqlite
+    * Database created in sqlite.
+* requirements.txt
+    * Where are the project dependencies to be installed.
 
