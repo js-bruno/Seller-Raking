@@ -60,3 +60,4 @@ with SessionLocal() as session:
         session.add(seller)
         session.add_all(seller.sales)
     session.commit()
+    print("Database created successfully")
