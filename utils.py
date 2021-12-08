@@ -58,7 +58,7 @@ def print_cordered_sales(item_name: str):
         [
             "Seller Name",
             "Item Name",
-            "Quantity",
+            "Sold amount",
         ]
     )
     order_sales = []
@@ -162,7 +162,7 @@ def edit_delete_sales():
 
         for index, sale_attr in enumerate(sale_attrs):
             print(f"{index+1} - {sale_attr}")
-        print(f"{index+2} - DELETE IT")
+        print(f"{index+2} - DELETE ROW")
 
         selected_option = int(input("Select one of the options to Modify:"))
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -189,9 +189,14 @@ def edit_delete_sales():
             os.system('cls' if os.name == 'nt' else 'clear')
             print(sales_tables)
         else:
-            new_value = input(
-                f"Enter the new value for {sale_attrs[selected_option-1]}:"
-            )
+            if( selected_option == 6) :
+                os.system('cls' if os.name == 'nt' else 'clear')
+                session.delete(db_sale)
+                print("Successfully deleted row")
+            else:
+                new_value = input(
+                    f"Enter the new value for {sale_attrs[selected_option-1]}:"
+                )
 
         if selected_option == 2:
             db_sale.customer_name = new_value
@@ -201,7 +206,5 @@ def edit_delete_sales():
             db_sale.item_name = new_value
         elif selected_option == 5:
             db_sale.value = new_value
-        elif selected_option == 6:
-            print("REMOVE")
 
         session.commit()
