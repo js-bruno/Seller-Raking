@@ -53,6 +53,7 @@ def print_cordered_sales(item_name: str):
     Shows on the screen a list of the quantity 
     that each seller has sold for that sales item
     """
+    os.system('cls' if os.name == 'nt' else 'clear')
     quantity_table = PrettyTable(
         [
             "Seller Name",
@@ -87,11 +88,15 @@ def create_new_sale():
     seller_choice_number = int(
         input("Enter the number corresponding to your seller registration:")
     )
+    os.system('cls' if os.name == 'nt' else 'clear')
     seller_selected = sellers[seller_choice_number - 1]
 
     customer_name_typed = input("Enter the name of the customer serviced:")
+    os.system('cls' if os.name == 'nt' else 'clear')
     date_sale_typed = input("Enter the date(YYYY/MM/DD) the sale took place:")
+    os.system('cls' if os.name == 'nt' else 'clear')
     item_name_typed = input("Enter the name of the sales item:")
+    os.system('cls' if os.name == 'nt' else 'clear')
     item_value_typed = input("Enter the value of the sales item:")
 
     new_sale = models.Sale(
@@ -108,7 +113,6 @@ def create_new_sale():
             .first()
         )
         seller.sales.append(new_sale)
-        print(seller)
         session.add(new_sale)
         session.commit()
 
@@ -118,6 +122,7 @@ def edit_delete_sales():
     Edit or delete sales data persisted in the database
     """
     sale_id = int(input("Enter Sale Id to Edit or Remove it:"))
+    os.system('cls' if os.name == 'nt' else 'clear')
     sale_attrs = [
         "Seller Name",
         "Customer Name",
@@ -160,6 +165,7 @@ def edit_delete_sales():
         print(f"{index+2} - DELETE IT")
 
         selected_option = int(input("Select one of the options to Modify:"))
+        os.system('cls' if os.name == 'nt' else 'clear')
         if selected_option == 1:
             sellers = session.query(models.Seller).all()
             for count, seller in enumerate(sellers):
@@ -171,24 +177,30 @@ def edit_delete_sales():
             db_seller.sales.remove(db_sale)
             sellers[new_value - 1].sales.append(db_sale)
             session.commit()
-            print(sellers[new_value - 1].name)
+            sales_tables.del_row(0)
+            sales_tables.add_row([
+                db_sale.id,
+                sellers[new_value - 1].name,
+                db_sale.customer_name,
+                db_sale.date_sale,
+                db_sale.item_name,
+                db_sale.item_value,
+            ])
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(sales_tables)
         else:
             new_value = input(
                 f"Enter the new value for {sale_attrs[selected_option-1]}:"
             )
 
         if selected_option == 2:
-            print("Customer Name")
-            db_sale[0].customer_name = new_value
+            db_sale.customer_name = new_value
         elif selected_option == 3:
-            print("Date of Sale")
-            db_sale[0].date_sale = new_value
+            db_sale.date_sale = new_value
         elif selected_option == 4:
-            print("Item Name")
-            db_sale[0].item_name = new_value
+            db_sale.item_name = new_value
         elif selected_option == 5:
-            print("Item Value")
-            db_sale[0].value = new_value
+            db_sale.value = new_value
         elif selected_option == 6:
             print("REMOVE")
 
