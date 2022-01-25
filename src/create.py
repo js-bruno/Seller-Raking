@@ -5,7 +5,6 @@ Creates data to populate the Saler and Saller columns.
 from random import randrange, uniform
 
 from sqlalchemy.sql.sqltypes import Float, String
-from sqlalchemy.orm import session
 from database import SessionLocal, engine
 import models
 

@@ -10,7 +10,8 @@ from utils import (
     edit_delete_sales,
     print_all_sales,
 )
-try :
+
+try:
     os.system("cls" if os.name == "nt" else "clear")
     print_all_sales()
     options = ["Item Count", "Create New Sale", "Edit or delete sales"]
@@ -29,5 +30,5 @@ try :
 
     elif selected_option == 3:
         edit_delete_sales()
-except: # pylint: disable=bare-except
-    print('Value entered incorrectly or out of range')
+except:  # pylint: disable=bare-except
+    print("Value entered incorrectly or out of range")
